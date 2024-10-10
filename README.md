@@ -1,6 +1,6 @@
 # Introduction
 
-This project is meant to be a web application that has a collection of AI tools. It is built using Flask for the back-end and HTML/CSS/JavaScript for the front-end.
+This project is meant to be a web application that has a collection of AI tools. It is built using Flask for the back-end and HTML/CSS/JavaScript for the front-end. This project is still ongoing.
 
 Note: This webapp was built on Python 3.12.4
 
