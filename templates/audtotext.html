@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Transcription</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animated.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome.css') }}">
+    <style>
+        /* General Styling */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* Top Bar */
+        .topbar {
+            background-color: var(--topbar-color);
+            color: var(--text-color);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .menu-btn {
+            font-size: 2rem;
+            cursor: pointer;
+            font-family: inherit, monospace;
+        }
+
+        .dark-mode-toggle {
+            cursor: pointer;
+            font-size: 2rem;
+            padding: 0.5rem;
+            margin-right: 1.5rem;
+            border-radius: 50%;
+            background-color: var(--toggle-bg);
+            color: var(--toggle-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 3rem;
+            width: 3rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: var(--topbar-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 6rem; /* Adjusting sidebar padding to move content lower */
+        }
+
+        .sidebar a {
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            font-size: 2rem;
+            color: var(--text-color);
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        .sidebar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 2.5rem;
+            font-size: 3rem;
+        }
+
+        /* Main Content */
+        .container {
+            text-align: center;
+            background-color: var(--button-color);
+            padding: 3rem;
+            margin-top: 6.5rem; /* Adjust for top bar */
+            border-radius: 1rem;
+            box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
+            color: var(--button-text);
+        }
+
+        .input-group {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column; /* Stack input and button on smaller screens */
+            align-items: center; /* Center align items */
+        }
+
+        .input-field {
+            padding: 1rem;
+            width: 100%; /* Make it responsive */
+            max-width: 20rem; /* Limit the maximum width */
+            margin-bottom: 1rem; /* Spacing between input and button */
+            border-radius: 0.5rem;
+            border: 0.1rem solid #ddd;
+        }
+
+        .main-white-button {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.8);
+            background: rgb(145, 92, 182);
+            padding: 15px 40px;
+            border-radius: 4px;
+            font-weight: normal;
+            font-size: 1rem;
+            text-transform: uppercase;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .main-white-button:hover {
+            color: rgba(255, 255, 255, 1);
+            box-shadow: 0 5px 15px rgba(145, 92, 182, .4);
+        }
+
+        .result {
+            font-size: 2rem;
+            color: var(--text-color);
+            margin-top: 2rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1001; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            color: black;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            max-width: 500px; /* Limit maximum width */
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .close-modal {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-modal:hover,
+        .close-modal:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* CSS Variables to Handle Theme Colors */
+        :root {
+            --topbar-color: white;
+            --text-color: black;
+            --button-color: white;
+            --button-text: black;
+            --toggle-bg: black;
+            --toggle-color: white;
+        }
+
+        .dark-mode {
+            --topbar-color: black;
+            --text-color: white;
+            --button-color: black;
+            --button-text: white;
+            --toggle-bg: white;
+            --toggle-color: black;
+        }
+
+        /* Media Queries for Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .topbar {
+                padding: 0.5rem;
+            }
+
+            .menu-btn, .dark-mode-toggle {
+                font-size: 1.5rem;
+            }
+
+            .sidebar a {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 2rem; /* Adjust padding for mobile */
+            }
+
+            .input-field {
+                width: 90%; /* Make the input field take more width on mobile */
+                max-width: none; /* Remove max-width for smaller screens */
+            }
+
+            .main-white-button {
+                font-size: 1rem; /* Adjust button size for mobile */
+                padding: 10px 20px; /* Adjust button padding */
+            }
+
+            .modal-content {
+                width: 90%; /* Responsive width for modal */
+            }
+        }
+    </style>
+</head>
+<body class="" onload="applyTheme()">
+    <!-- Top Bar -->
+    <div class="topbar">
+        <span class="menu-btn" onclick="toggleSidebar()">&#9776; </span>
+        <div class="dark-mode-toggle" onclick="toggleTheme()">&#9728;</div>
+    </div>
+
+    <!-- Sidebar -->
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">&times;</a>
+        <a href="{{ url_for('homepage') }}">Home</a>
+        <a href="{{ url_for('audtotext') }}">Audio Transcription</a>
+        <a>More coming soon...</a>
+    </div>
+
+    <!-- Main Content (Function Page) -->
+    <div class="container">
+        <h1>Upload an Audio File</h1>
+        <form action="{{ url_for('audtotext') }}" method="POST" enctype="multipart/form-data">
+            <div class="input-group">
+                <input type="file" id="fileInput" name="file" accept="audio/*" class="input-field" required>
+                <button type="button" class="main-white-button" onclick="showModal()">
+                    <i>Transcribe</i>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Display the transcribed text if it exists -->
+    {% if text %}
+        <div class="container">
+            <h2>Transcribed Text:</h2>
+            <p>{{ text }}</p>
+            <a href="{{ url_for('download_file', filename=txt_filename) }}" class="main-white-button">Download Transcription</a>
+        </div>
+    {% endif %}
+
+    <!-- Modal for Transcription Process -->
+    <div id="transcriptionModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2>Transcribing Audio...</h2>
+            <p>Please wait while we process your audio file.</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        let sidebarOpen = false;
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById("mySidebar");
+            if (!sidebarOpen) {
+                sidebar.style.width = "25rem";
+                sidebarOpen = true;
+            } else {
+                sidebar.style.width = "0";
+                sidebarOpen = false;
+            }
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            body.classList.toggle("dark-mode");
+            const isDarkMode = body.classList.contains("dark-mode");
+            localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+        }
+
+        function applyTheme() {
+            const theme = localStorage.getItem("theme");
+            if (theme === "dark") {
+                document.body.classList.add("dark-mode");
+            }
+        }
+
+        function showModal() {
+            const fileInput = document.getElementById("fileInput");
+            
+            // Check if a file is selected
+            if (fileInput.files.length === 0) {
+                alert("Please select a file to transcribe."); // Alert user if no file is selected
+                return; // Do not show the modal or submit the form
+            }
+
+            const modal = document.getElementById("transcriptionModal");
+            modal.style.display = "block"; // Show the modal
+
+            // Submit the form after a slight delay
+            setTimeout(function() {
+                document.querySelector('form').submit();
+            }, 1000); 
+        }
+
+        function closeModal() {
+            const modal = document.getElementById("transcriptionModal");
+            modal.style.display = "none"; // Hide the modal
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById("transcriptionModal");
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+    </script>
+</body>
+</html>
