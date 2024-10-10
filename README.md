@@ -4,7 +4,8 @@ This project is meant to be a web application that has a collection of AI tools.
 
 Note: This webapp was built on Python 3.12.4
 
-## Features
+
+# Features
 
 - Upload audio files for transcription.
 - Dark/Light mode toggle.
@@ -13,11 +14,13 @@ Note: This webapp was built on Python 3.12.4
 - HTML, CSS, JavaScript (Front-end)
 - OpenAI Whisper (For transcription)
 
-## Future plans
 
-When I have time, I might include in other AI tools.
+# Future plans
 
-## Installation
+When I have time, I might include in other AI tools. Such as Image to Text, Text to speech etc..
+
+
+# Installation
 
 1. Clone the repository:
 
