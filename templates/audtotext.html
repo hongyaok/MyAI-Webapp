@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/animated.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome.css') }}">
     <style>
-        /* General Styling */
+        
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -19,7 +19,7 @@
             color: #fff;
         }
 
-        /* Top Bar */
+        
         .topbar {
             background-color: var(--topbar-color);
             color: var(--text-color);
@@ -54,7 +54,7 @@
             width: 3rem;
         }
 
-        /* Sidebar */
+        
         .sidebar {
             height: 100%;
             width: 0;
@@ -65,7 +65,7 @@
             color: var(--text-color);
             overflow-x: hidden;
             transition: 0.5s;
-            padding-top: 6rem; /* Adjusting sidebar padding to move content lower */
+            padding-top: 6rem; 
         }
 
         .sidebar a {
@@ -88,12 +88,12 @@
             font-size: 3rem;
         }
 
-        /* Main Content */
+        
         .container {
             text-align: center;
             background-color: var(--button-color);
             padding: 3rem;
-            margin-top: 6.5rem; /* Adjust for top bar */
+            margin-top: 6.5rem; 
             border-radius: 1rem;
             box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
             color: var(--button-text);
@@ -103,15 +103,15 @@
             margin-top: 2rem;
             margin-bottom: 2rem;
             display: flex;
-            flex-direction: column; /* Stack input and button on smaller screens */
-            align-items: center; /* Center align items */
+            flex-direction: column; 
+            align-items: center; 
         }
 
         .input-field {
             padding: 1rem;
-            width: 100%; /* Make it responsive */
-            max-width: 20rem; /* Limit the maximum width */
-            margin-bottom: 1rem; /* Spacing between input and button */
+            width: 100%; 
+            max-width: 20rem; 
+            margin-bottom: 1rem; 
             border-radius: 0.5rem;
             border: 0.1rem solid #ddd;
         }
@@ -139,27 +139,27 @@
             margin-top: 2rem;
         }
 
-        /* Modal Styles */
+
         .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1001; /* Sit on top */
+            display: none; 
+            position: fixed; 
+            z-index: 1001; 
             left: 0;
             top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.4); 
         }
 
         .modal-content {
             background-color: #fefefe;
             color: black;
-            margin: 15% auto; /* 15% from the top and centered */
+            margin: 15% auto; 
             padding: 20px;
             border: 1px solid #888;
-            width: 80%; /* Could be more or less, depending on screen size */
-            max-width: 500px; /* Limit maximum width */
+            width: 80%; 
+            max-width: 500px; 
             border-radius: 5px;
             text-align: center;
         }
@@ -178,7 +178,7 @@
             cursor: pointer;
         }
 
-        /* CSS Variables to Handle Theme Colors */
+        
         :root {
             --topbar-color: white;
             --text-color: black;
@@ -197,7 +197,7 @@
             --toggle-color: black;
         }
 
-        /* Media Queries for Mobile Responsiveness */
+        
         @media (max-width: 768px) {
             .topbar {
                 padding: 0.5rem;
@@ -212,33 +212,33 @@
             }
 
             .container {
-                padding: 2rem; /* Adjust padding for mobile */
+                padding: 2rem; 
             }
 
             .input-field {
-                width: 90%; /* Make the input field take more width on mobile */
-                max-width: none; /* Remove max-width for smaller screens */
+                width: 90%; 
+                max-width: none; 
             }
 
             .main-white-button {
-                font-size: 1rem; /* Adjust button size for mobile */
-                padding: 10px 20px; /* Adjust button padding */
+                font-size: 1rem; 
+                padding: 10px 20px; 
             }
 
             .modal-content {
-                width: 90%; /* Responsive width for modal */
+                width: 90%; 
             }
         }
     </style>
 </head>
 <body class="" onload="applyTheme()">
-    <!-- Top Bar -->
+    
     <div class="topbar">
         <span class="menu-btn" onclick="toggleSidebar()">&#9776; </span>
         <div class="dark-mode-toggle" onclick="toggleTheme()">&#9728;</div>
     </div>
 
-    <!-- Sidebar -->
+    
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">&times;</a>
         <a href="{{ url_for('homepage') }}">Home</a>
@@ -246,7 +246,7 @@
         <a>More coming soon...</a>
     </div>
 
-    <!-- Main Content (Function Page) -->
+   
     <div class="container">
         <h1>Upload an Audio File</h1>
         <form action="{{ url_for('audtotext') }}" method="POST" enctype="multipart/form-data">
@@ -259,7 +259,7 @@
         </form>
     </div>
 
-    <!-- Display the transcribed text if it exists -->
+    
     {% if text %}
         <div class="container">
             <h2>Transcribed Text:</h2>
@@ -268,7 +268,7 @@
         </div>
     {% endif %}
 
-    <!-- Modal for Transcription Process -->
+    
     <div id="transcriptionModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()">&times;</span>
@@ -277,7 +277,7 @@
         </div>
     </div>
 
-    <!-- Scripts -->
+    
     <script>
         let sidebarOpen = false;
 
@@ -309,16 +309,16 @@
         function showModal() {
             const fileInput = document.getElementById("fileInput");
             
-            // Check if a file is selected
+            
             if (fileInput.files.length === 0) {
-                alert("Please select a file to transcribe."); // Alert user if no file is selected
-                return; // Do not show the modal or submit the form
+                alert("Please select a file to transcribe."); 
+                return; 
             }
 
             const modal = document.getElementById("transcriptionModal");
-            modal.style.display = "block"; // Show the modal
+            modal.style.display = "block"; 
 
-            // Submit the form after a slight delay
+            
             setTimeout(function() {
                 document.querySelector('form').submit();
             }, 1000); 
@@ -326,10 +326,10 @@
 
         function closeModal() {
             const modal = document.getElementById("transcriptionModal");
-            modal.style.display = "none"; // Hide the modal
+            modal.style.display = "none"; 
         }
 
-        // Close modal when clicking outside of it
+        
         window.onclick = function(event) {
             const modal = document.getElementById("transcriptionModal");
             if (event.target === modal) {

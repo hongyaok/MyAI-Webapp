@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/animated.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome.css') }}">
     <style>
-        /* General Styling */
+        
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -19,7 +19,7 @@
             color: #fff;
         }
 
-        /* Top Bar */
+        
         .topbar {
             background-color: var(--topbar-color);
             color: var(--text-color);
@@ -43,7 +43,7 @@
             cursor: pointer;
             font-size: 2rem;
             padding: 0.5rem;
-            margin-right: 1rem; /* Adjusted margin */
+            margin-right: 1rem; 
             border-radius: 50%;
             background-color: var(--toggle-bg);
             color: var(--toggle-color);
@@ -54,7 +54,7 @@
             width: 3rem;
         }
 
-        /* Sidebar */
+        
         .sidebar {
             height: 100%;
             width: 0;
@@ -65,7 +65,7 @@
             color: var(--text-color);
             overflow-x: hidden;
             transition: 0.5s;
-            padding-top: 6rem; /* Adjusting sidebar padding to move content lower */
+            padding-top: 6rem; 
         }
 
         .sidebar a {
@@ -88,7 +88,7 @@
             font-size: 3rem;
         }
 
-        /* Centered Button on Homepage */
+        
         .center-content {
             height: 35rem;
             display: flex;
@@ -110,7 +110,7 @@
             position: relative;
         }
 
-        /* Rainbow Glow Animation for the Get Started Button */
+        
         .center-content button::before {
             content: '';
             position: absolute;
@@ -131,19 +131,19 @@
             100% { filter: hue-rotate(360deg); }
         }
 
-        /* Sidebar Button */
+        
         .sidebar-btn {
             margin-top: 2rem;
         }
 
-        /* Announcements Section */
+        
         .announcements {
             background-color: var(--topbar-color);
             border: 1px solid #ddd;
             border-radius: 8px;
             padding: 1.5rem;
             margin-top: 2rem;
-            max-width: 800px; /* Centering the announcements */
+            max-width: 800px; 
             margin-left: auto;
             margin-right: auto;
         }
@@ -159,7 +159,7 @@
         }
 
 
-        /* CSS Variables to Handle Theme Colors */
+
         :root {
             --topbar-color: white;
             --text-color: black;
@@ -178,7 +178,7 @@
             --toggle-color: black;
         }
 
-        /* Media Queries for Mobile Responsiveness */
+
         @media (max-width: 768px) {
             .topbar {
                 padding: 0.5rem;
@@ -200,13 +200,13 @@
     </style>
 </head>
 <body class="" onload="applyTheme(); updateTime();">
-    <!-- Top Bar -->
+
     <div class="topbar">
         <span class="menu-btn" onclick="toggleSidebar()">&#9776; </span>
         <div class="dark-mode-toggle" onclick="toggleTheme()">&#9728;</div>
     </div>
 
-    <!-- Sidebar -->
+
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">&times;</a>
         <a href="{{ url_for('homepage') }}">Home</a>
@@ -214,19 +214,19 @@
         <a>More coming soon...</a>
     </div>
 
-    <!-- Main Content (Homepage) -->
+
     <div class="center-content">
         <h1 style="font-size: 4.5rem;">Welcome to HY.AI</h1>
         <button onclick="location.href='{{ url_for('audtotext') }}'">Get Started</button>
     </div>
 
-    <!-- Announcements Section -->
+
     <div class="announcements">
         <div class="announcement-title">Updates:</div>
         <div class="announcement-item">v1.0.0: Audio Transcription is now available!</div>
     </div>
 
-    <!-- Scripts -->
+
     <script>
         let sidebarOpen = false;
 
