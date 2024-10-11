@@ -14,6 +14,13 @@ Note: This webapp was built on Python 3.12.4
 - HTML, CSS, JavaScript (Front-end)
 - OpenAI Whisper (For transcription)
 
+# Demo
+
+Link: https://myai-2kcl.onrender.com
+
+As this is hosted on the base plan of render, some CSS files may not load/take a while to load.
+
+The AI function may also not work due to low CPU of the server.
 
 # Future plans
 
