@@ -5,6 +5,8 @@ from function.transcribe import Transcribe
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'  
 ALLOWED_EXTENSIONS = {'mp3', 'wav'}
+global port
+port = int(os.environ.get('PORT', 5000))
 
 if not os.path.exists(app.config['UPLOAD_FOLDER']):
     os.makedirs(app.config['UPLOAD_FOLDER'])
@@ -55,6 +57,5 @@ def download_file(filename):
         return "File not found", 404
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
 
