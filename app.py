@@ -20,7 +20,7 @@ def homepage():
         os.remove(os.path.join(app.config['UPLOAD_FOLDER'], file))
     return render_template('index.html')
 
-@app.route('/function', methods=['GET', 'POST'])
+@app.route('/audtotext', methods=['GET', 'POST'])
 def audtotext():
     if request.method == 'POST':
         if 'file' not in request.files:
