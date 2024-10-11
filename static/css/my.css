@@ -1,0 +1,413 @@
+/*copy over the styles from index.html to my.css*/
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-mode {
+    background-color: #333;
+    color: #fff;
+}
+
+
+.topbar {
+    background-color: var(--topbar-color);
+    color: var(--text-color);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.menu-btn {
+    font-size: 2rem;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+}
+
+.dark-mode-toggle {
+    cursor: pointer;
+    font-size: 2rem;
+    padding: 0.5rem;
+    margin-right: 1rem; 
+    border-radius: 50%;
+    background-color: var(--toggle-bg);
+    color: var(--toggle-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+    width: 3rem;
+}
+
+
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--topbar-color);
+    color: var(--text-color);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 6rem; 
+}
+
+.sidebar a {
+    padding: 1rem 1.5rem;
+    text-decoration: none;
+    font-size: 2rem;
+    color: var(--text-color);
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #575757;
+}
+
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 2.5rem;
+    font-size: 3rem;
+}
+
+
+.center-content {
+    height: 35rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.center-content button {
+    padding: 1.5rem 3rem;
+    font-size: 2rem;
+    background-color: var(--button-color);
+    color: var(--button-text);
+    border: none;
+    border-radius: 0.8rem;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+
+.center-content button::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+    z-index: -1;
+    filter: blur(10px);
+    opacity: 0.75;
+    animation: rainbowGlow 2s linear infinite;
+    border-radius: 0.8rem;
+}
+
+@keyframes rainbowGlow {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+
+.sidebar-btn {
+    margin-top: 2rem;
+}
+
+
+.announcements {
+    background-color: var(--topbar-color);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    max-width: 800px; 
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.announcement-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.announcement-item {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+
+
+:root {
+    --topbar-color: white;
+    --text-color: black;
+    --button-color: white;
+    --button-text: black;
+    --toggle-bg: black;
+    --toggle-color: white;
+}
+
+.dark-mode {
+    --topbar-color: black;
+    --text-color: white;
+    --button-color: black;
+    --button-text: white;
+    --toggle-bg: white;
+    --toggle-color: black;
+}
+
+
+@media (max-width: 768px) {
+    .topbar {
+        padding: 0.5rem;
+    }
+    .menu-btn, .dark-mode-toggle {
+        font-size: 1.5rem;
+    }
+    .sidebar a {
+        font-size: 1.5rem;
+    }
+    .center-content button {
+        font-size: 1.5rem;
+        padding: 1rem 2rem;
+    }
+    .announcements {
+        padding: 1rem;
+    }
+}
+
+        
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-mode {
+    background-color: #333;
+    color: #fff;
+}
+
+
+.topbar {
+    background-color: var(--topbar-color);
+    color: var(--text-color);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.menu-btn {
+    font-size: 2rem;
+    cursor: pointer;
+    font-family: inherit, monospace;
+}
+
+.dark-mode-toggle {
+    cursor: pointer;
+    font-size: 2rem;
+    padding: 0.5rem;
+    margin-right: 1.5rem;
+    border-radius: 50%;
+    background-color: var(--toggle-bg);
+    color: var(--toggle-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+    width: 3rem;
+}
+
+
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--topbar-color);
+    color: var(--text-color);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 6rem; 
+}
+
+.sidebar a {
+    padding: 1rem 1.5rem;
+    text-decoration: none;
+    font-size: 2rem;
+    color: var(--text-color);
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #575757;
+}
+
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 2.5rem;
+    font-size: 3rem;
+}
+
+
+.container {
+    text-align: center;
+    background-color: var(--button-color);
+    padding: 3rem;
+    margin-top: 6.5rem; 
+    border-radius: 1rem;
+    box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
+    color: var(--button-text);
+}
+
+.input-group {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+}
+
+.input-field {
+    padding: 1rem;
+    width: 100%; 
+    max-width: 20rem; 
+    margin-bottom: 1rem; 
+    border-radius: 0.5rem;
+    border: 0.1rem solid #ddd;
+}
+
+.main-white-button {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgb(145, 92, 182);
+    padding: 15px 40px;
+    border-radius: 4px;
+    font-weight: normal;
+    font-size: 1rem;
+    text-transform: uppercase;
+    transition: all 0.2s ease-in-out;
+}
+
+.main-white-button:hover {
+    color: rgba(255, 255, 255, 1);
+    box-shadow: 0 5px 15px rgba(145, 92, 182, .4);
+}
+
+.result {
+    font-size: 2rem;
+    color: var(--text-color);
+    margin-top: 2rem;
+}
+
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1001; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-content {
+    background-color: #fefefe;
+    color: black;
+    margin: 15% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; 
+    max-width: 500px; 
+    border-radius: 5px;
+    text-align: center;
+}
+
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+:root {
+    --topbar-color: white;
+    --text-color: black;
+    --button-color: white;
+    --button-text: black;
+    --toggle-bg: black;
+    --toggle-color: white;
+}
+
+.dark-mode {
+    --topbar-color: black;
+    --text-color: white;
+    --button-color: black;
+    --button-text: white;
+    --toggle-bg: white;
+    --toggle-color: black;
+}
+
+
+@media (max-width: 768px) {
+    .topbar {
+        padding: 0.5rem;
+    }
+
+    .menu-btn, .dark-mode-toggle {
+        font-size: 1.5rem;
+    }
+
+    .sidebar a {
+        font-size: 1.5rem;
+    }
+
+    .container {
+        padding: 2rem; 
+    }
+
+    .input-field {
+        width: 90%; 
+        max-width: none; 
+    }
+
+    .main-white-button {
+        font-size: 1rem; 
+        padding: 10px 20px; 
+    }
+
+    .modal-content {
+        width: 90%; 
+    }
+}
