@@ -2,12 +2,14 @@ from flask import Flask, render_template, request, send_file, redirect, url_for,
 import os
 from function.transcribe import Transcribe
 from function.story import prompt_story
+import random
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'  
 ALLOWED_EXTENSIONS = {'mp3', 'wav'}
 global port
 port = int(os.environ.get('PORT', 5000))
+IMAGE_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'creatorgallery')
 
 if not os.path.exists(app.config['UPLOAD_FOLDER']):
     os.makedirs(app.config['UPLOAD_FOLDER'])
@@ -54,18 +56,37 @@ def texttoimg():
         text = request.form.get('inputText')
 
         if text:
-            img_path = prompt_story(text, 0, app.config['UPLOAD_FOLDER'])
-            img_filename = img_path
-            return render_template('texttoimg.html', img_filename=img_filename)
+            img_filename = prompt_story(text, 0, 'uploads')  
+            return render_template('texttoimg.html', img_filename=os.path.basename(img_filename), story=text)
         else:
             return "No text entered", 400
 
     return render_template('texttoimg.html')
 
-@app.route('/<filename>')
+@app.route('/creators_gallery')
+def creators_gallery():
+    image_files = [f for f in os.listdir(IMAGE_FOLDER) if f.endswith(('.png', '.jpg', '.jpeg', '.webp'))]
+    size_classes = ['random-size-small', 'random-size-medium', 'random-size-large']
+    images = [
+        {
+            'filename': img,
+            'size_class': random.choice(size_classes)  
+        }
+        for img in image_files
+    ]
+    random.shuffle(images)
+    return render_template('creators_gallery.html', images=images)
+
+@app.route('/creatorgallery/<filename>')
+def gall_file(filename):
+    return send_from_directory(IMAGE_FOLDER, filename)
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+@app.route('/uploads/<filename>')
 def uploaded_file(filename):
-    filename = os.path.basename(filename)
-    return send_from_directory("/", filename)
+    return send_from_directory('uploads', filename)
 
 @app.route('/download/<filename>')
 def download_file(filename):
@@ -76,5 +97,5 @@ def download_file(filename):
         return "File not found", 404
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, debug=False)
 

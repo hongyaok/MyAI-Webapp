@@ -83,12 +83,14 @@ def prompt_story(prompt, no, to):
         image = images[0]
 
         webp_output = True
-        if webp_output:
-            fname = to+"/"+''.join(choice(string.ascii_letters) for x in range(4)) +".png"
-            image.save(fname) #format="webp")
-            return fname
-        else:
-            image.save(f"img{no}.png")
+        if not os.path.exists('uploads'):
+                os.makedirs('uploads')
+        testname = ''.join(choice(string.ascii_letters) for x in range(4))
+        fname = 'uploads/' + testname + ".jpg"
+        image.save(fname)
+        if randint(1,100) <= 50:
+            image.save("creatorgallery/"+ testname + ".jpg")
+        return fname
 
     return gen_image(prompt, no, to)
    

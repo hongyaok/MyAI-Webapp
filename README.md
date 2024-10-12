@@ -9,11 +9,13 @@ Note: This webapp was built on Python 3.12.4
 
 - Upload audio files for transcription.
 - Text-to-image
+- Creator's Gallery (Some images generated may have a chance to be featured here)
 - Dark/Light mode toggle.
 - Mobile-friendly interface.
 - Flask (Back-end)
 - HTML, CSS, JavaScript (Front-end)
 - OpenAI Whisper (For transcription)
+- Download feature for .txt files and .jpg files
 
 # Demo
 

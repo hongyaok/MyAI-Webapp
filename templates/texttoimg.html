@@ -42,25 +42,27 @@
 </head>
 <body onload="applyTheme()">
     
-    <!-- Top Bar -->
+
     <div class="topbar">
         <span class="menu-btn" onclick="toggleSidebar()">&#9776; </span>
         <div class="dark-mode-toggle" onclick="toggleTheme()">&#9728;</div>
     </div>
 
-    <!-- Sidebar -->
+
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">&times;</a>
         <a href="{{ url_for('homepage') }}">Home</a>
         <a href="{{ url_for('audtotext') }}">Audio Transcription</a>
         <a href="{{ url_for('texttoimg') }}">Text to Image</a>
+        <a href="{{ url_for('creators_gallery') }}">Creator's Gallery</a>
         <a>More coming soon...</a>
+        <a href="https://github.com/hongyaok/MyAI-Webapp.git" target="_blank">Find us on Github ⎆</a>
     </div>
 
-    <!-- Main Content -->
+
     <div class="container">
         <h1>Generate an Image from Story</h1>
-        <form action="{{ url_for('texttoimg') }}" method="POST">
+        <form action="{{ url_for('texttoimg') }}" method="POST" onsubmit="showModal(); return false;">
             <div class="input-group">
                 <input type="text" id="textInput" name="inputText" class="input-field" placeholder="Enter words..." required>
                 <button type="submit" class="main-white-button">
@@ -70,15 +72,30 @@
         </form>
     </div>
 
-    <!-- Display the generated image if available -->
-    {% if img_filename %}
+
+    {% if story %}
     <div class="container">
-        <h2>Generated Image:</h2>
-        <img src="{{ url_for('uploaded_file', filename=img_filename) }}" alt="Generated Image" style="max-width: 100%;">
+        <h2>Your Story:</h2>
+        <p>{{ story }}</p>
     </div>
     {% endif %}
 
-    <!-- Modal for Image Generation Process -->
+
+    {% if img_filename %}
+        <div class="container">
+            <h2>Generated Image:</h2>
+            <img src="{{ url_for('uploaded_file', filename=img_filename) }}" alt="Generated Image" style="max-width: 100%;">
+            
+
+            <div style="margin-top: 20px;">
+                <a href="{{ url_for('uploaded_file', filename=img_filename) }}" download="{{ img_filename }}" class="main-white-button">
+                    <i>Download Image</i>
+                </a>
+            </div>
+        </div>
+    {% endif %}
+
+
     <div id="imageGenerationModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()">&times;</span>
@@ -87,7 +104,7 @@
         </div>
     </div>
 
-    <!-- Scripts -->
+
     <script>
         let sidebarOpen = false;
 

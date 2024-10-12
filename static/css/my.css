@@ -1,4 +1,4 @@
-/*copy over the styles from index.html to my.css*/
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -22,6 +22,7 @@ body {
     top: 0;
     width: 100%;
     z-index: 1000;
+
 }
 
 .menu-btn {
@@ -248,6 +249,7 @@ body {
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 6rem; 
+    z-index: 1000;
 }
 
 .sidebar a {
@@ -417,4 +419,41 @@ body {
     .modal-content {
         width: 90%; 
     }
+}
+
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+    grid-gap: 1.5rem;
+    padding-top: 10rem;
+    padding-left: 7rem;
+    padding-right: 7rem;
+}
+
+.gallery-container img {
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    border-radius: 2rem;
+    cursor: pointer;
+}
+
+.gallery-container img:hover {
+    cursor: pointer;
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.random-size-small {
+    grid-row-end: span 1;
+    margin-left: 0.5rem;
+}
+
+.random-size-medium {
+    grid-row-end: span 2;
+    margin-left: 0.5rem;
+}
+
+.random-size-large {
+    grid-row-end: span 3;
+    margin-left: 0.5rem;
 }
