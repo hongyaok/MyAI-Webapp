@@ -3,51 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audio Transcription</title>
+    <title>Image from Text</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/my.css') }}">
-<style>
-@media (max-width: 768px) {
-    .topbar {
-        padding: 0.5rem;
-    }
+    <style>
+        @media (max-width: 768px) {
+            .topbar {
+                padding: 0.5rem;
+            }
 
-    .menu-btn, .dark-mode-toggle {
-        font-size: 1.5rem;
-    }
+            .menu-btn, .dark-mode-toggle {
+                font-size: 1.5rem;
+            }
 
-    .sidebar a {
-        font-size: 1.5rem;
-    }
+            .sidebar a {
+                font-size: 1.5rem;
+            }
 
-    .container {
-        padding: 2rem; 
-    }
+            .container {
+                padding: 2rem; 
+            }
 
-    .input-field {
-        width: 90%; 
-        max-width: none; 
-    }
+            .input-field {
+                width: 90%; 
+                max-width: none; 
+            }
 
-    .main-white-button {
-        font-size: 1rem; 
-        padding: 10px 20px; 
-    }
+            .main-white-button {
+                font-size: 1rem; 
+                padding: 10px 20px; 
+            }
 
-    .modal-content {
-        width: 90%; 
-    }
-}
-</style>
+            .modal-content {
+                width: 90%; 
+            }
+        }
+    </style>
 
 </head>
-<body class="" onload="applyTheme()">
+<body onload="applyTheme()">
     
+    <!-- Top Bar -->
     <div class="topbar">
         <span class="menu-btn" onclick="toggleSidebar()">&#9776; </span>
         <div class="dark-mode-toggle" onclick="toggleTheme()">&#9728;</div>
     </div>
 
-    
+    <!-- Sidebar -->
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">&times;</a>
         <a href="{{ url_for('homepage') }}">Home</a>
@@ -56,38 +57,37 @@
         <a>More coming soon...</a>
     </div>
 
-   
+    <!-- Main Content -->
     <div class="container">
-        <h1>Upload an Audio File</h1>
-        <form action="{{ url_for('audtotext') }}" method="POST" enctype="multipart/form-data">
+        <h1>Generate an Image from Story</h1>
+        <form action="{{ url_for('texttoimg') }}" method="POST">
             <div class="input-group">
-                <input type="file" id="fileInput" name="file" accept="audio/*" class="input-field" required>
-                <button type="button" class="main-white-button" onclick="showModal()">
-                    <i>Transcribe</i>
+                <input type="text" id="textInput" name="inputText" class="input-field" placeholder="Enter words..." required>
+                <button type="submit" class="main-white-button">
+                    <i>Generate Image</i>
                 </button>
             </div>
         </form>
     </div>
 
-    
-    {% if text %}
-        <div class="container">
-            <h2>Transcribed Text:</h2>
-            <p>{{ text }}</p>
-            <a href="{{ url_for('download_file', filename=txt_filename) }}" class="main-white-button">Download Transcription</a>
-        </div>
+    <!-- Display the generated image if available -->
+    {% if img_filename %}
+    <div class="container">
+        <h2>Generated Image:</h2>
+        <img src="{{ url_for('uploaded_file', filename=img_filename) }}" alt="Generated Image" style="max-width: 100%;">
+    </div>
     {% endif %}
 
-    
-    <div id="transcriptionModal" class="modal">
+    <!-- Modal for Image Generation Process -->
+    <div id="imageGenerationModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()">&times;</span>
-            <h2>Transcribing Audio...</h2>
-            <p>Please wait while we process your audio file.</p>
+            <h2>Generating Image...</h2>
+            <p>Please wait while we generate your image.</p>
         </div>
     </div>
 
-    
+    <!-- Scripts -->
     <script>
         let sidebarOpen = false;
 
@@ -117,31 +117,28 @@
         }
 
         function showModal() {
-            const fileInput = document.getElementById("fileInput");
+            const textInput = document.getElementById("textInput").value.trim();
             
-            
-            if (fileInput.files.length === 0) {
-                alert("Please select a file to transcribe."); 
-                return; 
+            if (textInput === "") {
+                alert("Please enter text to generate an image.");
+                return;
             }
 
-            const modal = document.getElementById("transcriptionModal");
-            modal.style.display = "block"; 
+            const modal = document.getElementById("imageGenerationModal");
+            modal.style.display = "block";
 
-            
             setTimeout(function() {
                 document.querySelector('form').submit();
             }, 1000); 
         }
 
         function closeModal() {
-            const modal = document.getElementById("transcriptionModal");
-            modal.style.display = "none"; 
+            const modal = document.getElementById("imageGenerationModal");
+            modal.style.display = "none";
         }
 
-        
         window.onclick = function(event) {
-            const modal = document.getElementById("transcriptionModal");
+            const modal = document.getElementById("imageGenerationModal");
             if (event.target === modal) {
                 closeModal();
             }

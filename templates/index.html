@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HY.AI</title>
+    <title>My.AI</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/my.css') }}">
 <style>
 @media (max-width: 768px) {
@@ -39,6 +39,7 @@
         <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">&times;</a>
         <a href="{{ url_for('homepage') }}">Home</a>
         <a href="{{ url_for('audtotext') }}">Audio Transcription</a>
+        <a href="{{ url_for('texttoimg') }}">Text to Image</a>
         <a>More coming soon...</a>
     </div>
 
@@ -52,6 +53,7 @@
     <div class="announcements">
         <div class="announcement-title">Updates:</div>
         <div class="announcement-item">v1.0.0: Audio Transcription is now available!</div>
+        <div class="announcement-item">v1.0.1: Text-to-Image is now available!</div>
     </div>
 
 

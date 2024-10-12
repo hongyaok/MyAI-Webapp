@@ -253,7 +253,8 @@ body {
 .sidebar a {
     padding: 1rem 1.5rem;
     text-decoration: none;
-    font-size: 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
     color: var(--text-color);
     display: block;
     transition: 0.3s;
@@ -281,6 +282,12 @@ body {
     color: var(--button-text);
 }
 
+
+@keyframes rainbowGlow {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
 .input-group {
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -301,7 +308,7 @@ body {
 .main-white-button {
     text-decoration: none;
     color: rgba(255, 255, 255, 0.8);
-    background: rgb(145, 92, 182);
+    background: rgb(160, 124, 185);
     padding: 15px 40px;
     border-radius: 4px;
     font-weight: normal;
@@ -390,7 +397,7 @@ body {
     }
 
     .sidebar a {
-        font-size: 1.5rem;
+        font-size: 1rem;
     }
 
     .container {

@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, send_file, redirect, url_for, jsonify
+from flask import Flask, render_template, request, send_file, redirect, url_for, jsonify, send_from_directory
 import os
 from function.transcribe import Transcribe
+from function.story import prompt_story
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'  
@@ -47,6 +48,24 @@ def audtotext():
 
     return render_template('audtotext.html')
 
+@app.route('/texttoimg', methods=['GET', 'POST'])
+def texttoimg():
+    if request.method == 'POST':
+        text = request.form.get('inputText')
+
+        if text:
+            img_path = prompt_story(text, 0, app.config['UPLOAD_FOLDER'])
+            img_filename = img_path
+            return render_template('texttoimg.html', img_filename=img_filename)
+        else:
+            return "No text entered", 400
+
+    return render_template('texttoimg.html')
+
+@app.route('/<filename>')
+def uploaded_file(filename):
+    filename = os.path.basename(filename)
+    return send_from_directory("/", filename)
 
 @app.route('/download/<filename>')
 def download_file(filename):
