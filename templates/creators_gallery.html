@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creator's Gallery</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/my.css') }}">
+    <style>
+
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 1000;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8); 
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        .modal-content img {
+            width: 100%; 
+        }
+
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-container {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body onload="applyTheme()">
+
+
+    <div class="topbar">
+        <span class="menu-btn" onclick="toggleSidebar()">&#9776;</span>
+        <h2>Creator's Gallery</h2>
+        <div class="dark-mode-toggle" onclick="toggleTheme()">&#9728;</div>
+    </div>
+
+
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="toggleSidebar()">&times;</a>
+        <a href="{{ url_for('homepage') }}">Home</a>
+        <a href="{{ url_for('audtotext') }}">Audio Transcription</a>
+        <a href="{{ url_for('texttoimg') }}">Text to Image</a>
+        <a href="{{ url_for('creators_gallery') }}">Creator's Gallery</a>
+        <a>More coming soon...</a>
+        <a href="https://github.com/hongyaok/MyAI-Webapp.git" target="_blank">Find us on Github ⎆</a>
+    </div>
+
+
+    <div class="gallery-container">
+        {% for image in images %}
+            <div class="{{ image.size_class }}">
+                <img src="{{ url_for('gall_file', filename=image.filename) }}" alt="Gallery Image" onclick="showImageModal(this)">
+            </div>
+        {% endfor %}
+    </div>
+
+
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="Expanded Image">
+        </div>
+    </div>
+
+    <script>
+        let sidebarOpen = false;
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById("mySidebar");
+            if (!sidebarOpen) {
+                sidebar.style.width = "25rem";
+                sidebarOpen = true;
+            } else {
+                sidebar.style.width = "0";
+                sidebarOpen = false;
+            }
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            body.classList.toggle("dark-mode");
+            const isDarkMode = body.classList.contains("dark-mode");
+            localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+        }
+
+        function applyTheme() {
+            const theme = localStorage.getItem("theme");
+            if (theme === "dark") {
+                document.body.classList.add("dark-mode");
+            }
+        }
+
+        function showImageModal(imgElement) {
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("modalImage");
+            modal.style.display = "block";  
+            modalImg.src = imgElement.src;  
+        }
+
+        function closeModal() {
+            const modal = document.getElementById("imageModal");
+            modal.style.display = "none";  
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById("imageModal");
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+    </script>
+</body>
+</html>
