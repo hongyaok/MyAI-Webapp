@@ -6,3 +6,4 @@ torch
 compel
 pillow
 tqdm
+gunicorn
