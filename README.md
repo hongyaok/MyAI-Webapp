@@ -8,6 +8,7 @@ Note: This webapp was built on Python 3.12.4
 # Features
 
 - Upload audio files for transcription.
+- Text-to-image
 - Dark/Light mode toggle.
 - Mobile-friendly interface.
 - Flask (Back-end)
@@ -20,7 +21,7 @@ Link: https://myai-2kcl.onrender.com
 
 As this is hosted on the base plan of render, some CSS files may not load/take a while to load.
 
-The AI function may also not work due to low CPU of the server.
+I highly do not recommend using the AI features as the base plan lacks computational power.
 
 # Future plans
 
