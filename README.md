@@ -27,7 +27,7 @@ I highly do not recommend using the AI features as the base plan lacks computati
 
 # Future plans
 
-When I have time, I might include in other AI tools. Such as Image to Text, Text to speech etc..
+When I have time, I may include in other AI tools. Such as Image-to-text, Text-to-speech etc..
 
 
 # Installation
@@ -51,3 +51,10 @@ When I have time, I might include in other AI tools. Such as Image to Text, Text
    pip install -r requirements.txt
    python app.py
    ```
+
+
+# References
+
+Link to original text-to-image/sketch: 
+
+https://colab.research.google.com/drive/1My2E1d6Wb4uYqcfbkNvoHxDWHQ3bEYx7?usp=sharing#scrollTo=TCaD3_unMskv
